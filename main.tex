@@ -94,12 +94,13 @@
 
   \subsection{Beschreibung}
     \par
-      Die Applikation soll zum Voten von Routen am Kilter Board in einer Boulderhalle helfen.
-      Denn oftmals ist es schwer eine unparteiische Wahl zwischen verschiedenen Schwierigkeitsgeraden der Routen zu gewährleisten, gerade wenn eine weite Spanne von Erfahrungsstufen unter den Boulderern vertreten ist.
-      Jeder Boulderer kann Routen zu einem Pool hinzufügen und diese einem bestimmten Level zuordnen.
-      Dann kann jeder Boulderer für eine Route stimmen und ein Voting Algorithmus basierend auf den Erfahrungsstufen wählt dann eine Route aus.
-      Während des Kletterns loggen die Boulderer ihre Versuche auf jeder Route um am Ende eine Auswertung zu erhalten.
-      Auf Wunsch können die persönlichen Statistiken auch gespeichert werden, sowie Statistiken zwischen bestimmten Boulderern.
+      Die Applikation soll zum Wählen von Routen am Kilter Board in einer Boulderhalle helfen,
+      denn oftmals ist es schwer eine unparteiische Wahl zwischen verschiedenen Schwierigkeitsgeraden der Routen zu gewährleisten -
+      gerade wenn eine weite Spanne von Erfahrungsstufen unter den Boulderern vertreten ist.
+      Jeder Boulderer kann Routen zu einem Auswahl-Pool hinzufügen und diese mit einem bestimmten Schwierigkeitsgerad versehen,
+      dann kann jeder Boulderer für eine Route stimmen und ein Wahl-Algorithmus, basierend auf den Erfahrungsstufen der Teilnehmer, wählt dann eine Route aus.
+      Während des Kletterns tragen die Boulderer ihre Versuche auf jeder Route in die App ein, um am Ende eine Auswertung zu erhalten.
+      Auf Wunsch können die persönlichen Statistiken auch gespeichert werden, sowie Statistiken zwischen bestimmten Boulderern (Rivalitäten).
 
     \subsubsection{Use Cases}
       \begin{enumerate}
@@ -107,7 +108,7 @@
         \item Angabe eines Namens und dem eigenen Erfahrungslevel im Bouldern
         \item Hinzufügen k/einer oder mehrerer Routen zum Route Pool
         \item Ansehen der verschiedenen Routen im Pool
-        \item Voten für eine Route
+        \item Wählen für eine Route
         \item Loggen der Versuche mit Fortschritt (in Prozenten), sowie dem Erreichen eines Checkpoints
         \item Ändern des eigenen Erfahrungslevels während einer laufenden Session
         \item Anzeigen von Statistiken der aktuellen Session
@@ -120,7 +121,7 @@
   \subsection{Einordnung in die Anforderungen}  
     \par  
       Die Applikation basiert auf einem Ad-hoc Netzwerk welches zwischen den Geräten der Boulderer aufgebaut wird.
-      Dafür ziehen wir Bluetooth, sowie WiFi-Direct in Betracht, im Optimalfall bieten wir die Möglichkeit für beides.
+      Dafür ziehen wir Bluetooth, sowie WiFi-Direct in Betracht, im Optimalfall wird die Möglichkeit für beides geboten.
       Die Statistiken der Boulderer und die Versuche während der Sessions werden auf dem persönlichen Gerät gespeichert und dann im Ad-hoc Netzwerk gepublished, somit liegen die Daten immer verteilt auf mehreren Geräten.
       Lässt es der zeitliche Rahmen zu besteht auch die Möglichkeit NFC für das Beitreten/Erstellen einer Session zwischen Boulderern zu nutzen.
     
