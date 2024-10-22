@@ -92,31 +92,38 @@
 
 \section{Projektidee}
 
-\subsection{Beschreibung}
-  \par
-    Die Applikation soll zum Voten von Routen am Kilter Board in einer Boulderhalle helfen.
-    Denn oftmals ist es schwer eine unparteiische Wahl zwischen verschiedenen Schwierigkeitsgeraden der Routen zu gewährleisten, gerade wenn eine weite Spanne von Erfahrungsstufen unter den Boulderern vertreten ist.
-    Jeder Boulderer kann Routen zu einem Pool hinzufügen und diese einem bestimmten Level zuordnen, dieses darf jedoch nie sein eigenes Level überschreiten.
-    Dann kann jeder Boulderer für eine Route stimmen und ein Voting Algorithmus basierend auf den Erfahrungsstufen wählt dann eine Route aus.
-    Während des Kletterns loggen die Boulderer ihre Versuche auf jeder Route um am Ende eine Auswertung zu erhalten.
-    Auf Wunsch können die persönlichen Statistiken auch gespeichert werden, sowie Statistiken zwischen bestimmten Boulderern.
-    Sessions bieten verschiedene Modifikationen, welche den Voting Algorithmus betreffen, sowie generelle Einstellungen der Session, wie die maximale Anzahl der Versuche pro Route.
+  \subsection{Beschreibung}
+    \par
+      Die Applikation soll zum Voten von Routen am Kilter Board in einer Boulderhalle helfen.
+      Denn oftmals ist es schwer eine unparteiische Wahl zwischen verschiedenen Schwierigkeitsgeraden der Routen zu gewährleisten, gerade wenn eine weite Spanne von Erfahrungsstufen unter den Boulderern vertreten ist.
+      Jeder Boulderer kann Routen zu einem Pool hinzufügen und diese einem bestimmten Level zuordnen.
+      Dann kann jeder Boulderer für eine Route stimmen und ein Voting Algorithmus basierend auf den Erfahrungsstufen wählt dann eine Route aus.
+      Während des Kletterns loggen die Boulderer ihre Versuche auf jeder Route um am Ende eine Auswertung zu erhalten.
+      Auf Wunsch können die persönlichen Statistiken auch gespeichert werden, sowie Statistiken zwischen bestimmten Boulderern.
 
-\subsubsection{Use Cases}
-  \begin{enumerate}
-    \item Session erstellen oder einem Session beitreten durch Angabe eines Session Codes (möglicherweise auch via NFC)
-    \item Angabe eines Namens und dem eigenen Erfahrungslevel im Bouldern
-    \item Hinzufügen k/einer oder mehrerer Routen zum Route Pool
-    \item Ansehen der verschiedenen Routen im Pool
-    \item Voten für eine Route
-    \item Loggen der Versuche mit Fortschritt (in Prozenten), sowie dem Erreichen eines Checkpoints
-    \item Ändern des eigenen Erfahrungslevels während einer laufenden Session
-    \item Ändern der Session Regeln während einer laufenden Session
-  \end{enumerate}
+    \subsubsection{Use Cases}
+      \begin{enumerate}
+        \item Session erstellen oder einem Session beitreten durch Angabe eines Session Codes (möglicherweise auch via NFC)
+        \item Angabe eines Namens und dem eigenen Erfahrungslevel im Bouldern
+        \item Hinzufügen k/einer oder mehrerer Routen zum Route Pool
+        \item Ansehen der verschiedenen Routen im Pool
+        \item Voten für eine Route
+        \item Loggen der Versuche mit Fortschritt (in Prozenten), sowie dem Erreichen eines Checkpoints
+        \item Ändern des eigenen Erfahrungslevels während einer laufenden Session
+        \item Anzeigen von Statistiken der aktuellen Session
+        \item Verlassen der laufenden Session
+      \end{enumerate}
 
-\subsubsection{Use Case Diagram}
+    \subsubsection{Use Case Diagram}
 
-\subsection{Wireframes}
-  \includegraphics[width=\textwidth]{pictures/KilterVote_GUI.png}
+  \subsection{Einordnung in die Anforderungen}  
+    \par  
+      Die Applikation basiert auf einem Ad-hoc Netzwerk welches zwischen den Geräten der Boulderer aufgebaut wird.
+      Dafür ziehen wir Bluetooth, sowie WiFi-Direct in Betracht, im Optimalfall bieten wir die Möglichkeit für beides.
+      Die Statistiken der Boulderer und die Versuche während der Sessions werden auf dem persönlichen Gerät gespeichert und dann im Ad-hoc Netzwerk gepublished, somit liegen die Daten immer verteilt auf mehreren Geräten.
+      Lässt es der zeitliche Rahmen zu besteht auch die Möglichkeit NFC für das Beitreten/Erstellen einer Session zwischen Boulderern zu nutzen.
+    
+  \subsection{Wireframes}
+    \includegraphics[width=\textwidth]{pictures/KilterVote_GUI.png}
 
 \end{document}
