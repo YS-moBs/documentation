@@ -1,0 +1,92 @@
+\documentclass[11pt,a4paper,headsepline,footsepline,bibliography=totocnumbered]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{microtype}
+\usepackage{bookmark}
+
+\usepackage{fancyhdr}
+\usepackage[onehalfspacing]{setspace}
+\usepackage[font=small]{caption}
+
+
+% Abb. statt Abbildung als Caption
+\addto\captionsngerman{\renewcommand{\figurename}{Abb.}}
+% Tab. statt Tabelle als Überschrift
+\addto\captionsngerman{\renewcommand{\tablename}{Tab.}}
+
+\setlength{\headheight}{14pt}
+
+\usepackage{chngcntr}
+\counterwithout{equation}{section}
+\renewcommand{\theequation}{\arabic{equation}}
+
+%change font
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{tikz} %Zum Diagramme zeichnen
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+
+\setlength{\parindent}{0cm} % Einrückung bei Paragraphenbeginn entfernen
+
+%%%
+
+\begin{document}
+\pagestyle{fancy}
+\pagenumbering{arabic}
+
+\thispagestyle{empty}
+
+\begin{center}
+  \begin{figure}[h]
+    \includegraphics[width=5cm]{pictures/htw-logo.png}
+  \end{figure}
+
+  \huge{HTW Berlin}
+  \linebreak
+  \Large{Fachbereich 4 - Informatik, Kommunikation und Wirtschaft}
+  \linebreak
+  \Large{BA - Angewandte Informatik}
+  \linebreak
+
+  \vspace{0.25cm}
+
+  \Large{B35 - Mobile Betriebssysteme und Netzwerke}
+  \linebreak
+  \large{WiSe - 24/25}
+  \linebreak
+  \large{Prof. Dr. Thomas Schwotzer}
+\end{center}
+
+\vspace{1cm}
+
+% \begin{verbatim}
+% \end{verbatim}
+
+\begin{center}
+  \textbf{\Huge{Semesterbegleitende Arbeit - KilterVote}}
+\end{center}
+
+\vspace{1cm}
+
+% \begin{verbatim}
+% \end{verbatim}
+
+\begin{flushleft}
+\begin{tabular}{lll}
+  \textbf{Bearbeitende:} & & Yannik Schüler \\ & & Simon Cornelius \\
+  \textbf{Matrikelnummern:} & & 583880 \\ & &  xxxxxx \\
+\end{tabular}
+
+
+\end{flushleft}
+
+\pagebreak %Deckblatt Ende
+\tableofcontents
+\newpage
+
+\end{document}
