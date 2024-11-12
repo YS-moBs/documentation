@@ -131,8 +131,18 @@
 \newpage
 
 \section{Komponenten}
+
   \par
-    Ganz grob besteht die Applikation aus 4 Komponenten.
+    Unsere erste grobe Planung sah folgendermaßen aus:
+    \newline
+    \includegraphics[width=\textwidth]{pictures/planning.png}
+    \newpage
+    Daraus entstand dann folgendes Komponenten Diagramm:
+    \newline
+    \includegraphics[width=\textwidth]{pictures/component_diagram.drawio.png}
+
+  \par
+    Ganz grob besteht die Applikation aus 5 Komponenten.
     \begin{enumerate}
       \item GUI
       \item Data
@@ -152,6 +162,7 @@
       Die GUI bietet keine Schnittstelle, da sie nur auf andere Komponenten zugreift.
       Das Testen dieser ist nur durch End-to-End Test möglich z.B. durch Bibliotheken wie Espresso.
 
+    \newpage
     \subsubsection{Main Activity}
 
       \subsubsubsection{Sessions}
