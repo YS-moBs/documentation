@@ -135,6 +135,7 @@
     Ganz grob besteht die Applikation aus 4 Komponenten.
     \begin{enumerate}
       \item GUI
+      \item Data
       \item Domain Logic
       \item Network
       \item Persistence
@@ -142,6 +143,7 @@
     Die GUI Komponente greift dabei auf die Domain Logic Komponente zu, welche die nötigen Daten zur Anzeige in der GUI bereitstellt.
     Die Domain Logic Komponente wiederum greift auf die Network Komponente und die Persistence Komponente zu.
     Über diese beiden Komponenten erfragt die Domain Logic Komponente die nötigen Daten, entweder von anderen Geräten im gleichen Ad-hoc Netzwerk oder durch die auf dem Gerät gespeicherten Daten.
+    Alle diese Komponenten greifen auf die Date Komponente zu, da in diesem die Modelle der einzelnen Datenstrukturen liegen.
 
   \subsection{GUI}
     \par
@@ -181,6 +183,50 @@
       \par
         In dieser Activity wird den Boulderern die Möglichkeit gegeben eine eigene Route zu erstellen, abzuändern und zu speichern.
 
+
+  \subsection{Data}
+    \par
+      Hier liegen wie bereits erwähnt die verschiedenen Models der einzelnen Datenstrukturen.
+      Nach aktuellem Stand sind folgende Strukturen von Relevanz:
+      \begin{enumerate}
+        \item User
+        \item Route
+        \item Vote
+        \item Statistics
+      \end{enumerate}
+
+    \subsubsection{User}
+      \par
+        Der User besteht hauptsächlich aus:
+        \begin{itemize}
+          \item Name
+          \item durchschnittliches Erfahrungslevel
+          \item Statistics
+        \end{itemize}
+
+    \subsubsection{Route}
+      \par
+        Eine Route ist charakterisiert durch:
+        \begin{itemize}
+          \item Schwierigkeitsgrad
+          \item Darstellung der Route (wahrscheinlich als Bild, oder in Form eines Arrays)
+        \end{itemize}
+
+    \subsubsection{Vote}
+      \par
+        Ein Vote hat folgende Bestandteile:
+        \begin{itemize}
+          \item gewählte Route
+          \item Gewichtung des Votes
+        \end{itemize}
+
+    \subsubsection{Statistics}
+      \par
+        Nach aktuellem Stand wollen wir vor allem die folgenden Daten in den Statistics unterbringen: 
+        \begin{itemize}
+          \item höchstes erreichtes Erfahrungslevel
+          \item Versuche pro Route inklusive prozentualem Fortschritt auf dieser Route
+        \end{itemize}
 
   \subsection{Domain Logic}
     \par
