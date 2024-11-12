@@ -13,25 +13,25 @@
 \usepackage[font=small]{caption}
 
 
-% Abb. statt Abbildung als Caption
 \addto\captionsngerman{\renewcommand{\figurename}{Abb.}}
-% Tab. statt Tabelle als Überschrift
 \addto\captionsngerman{\renewcommand{\tablename}{Tab.}}
 
 \setlength{\headheight}{14pt}
 
 \usepackage{chngcntr}
 \counterwithout{equation}{section}
+
 \renewcommand{\theequation}{\arabic{equation}}
-
-%change font
 \renewcommand{\familydefault}{\sfdefault}
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
 
-\usepackage{tikz} %Zum Diagramme zeichnen
+\usepackage{tikz}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.17}
 
-\setlength{\parindent}{0cm} % Einrückung bei Paragraphenbeginn entfernen
+\setlength{\parindent}{0cm}
 
 %%%
 
@@ -115,8 +115,11 @@
         \item Verlassen der laufenden Session
       \end{enumerate}
 
-    \subsubsection{Use Case Diagram}
-      \includegraphics[width=\textwidth]{pictures/Use_Case_Diagram.png}
+    % \subsubsection{Use Case Diagram}
+    %   \includegraphics[width=\textwidth]{pictures/Use_Case_Diagram.png}
+
+  \subsection{Wireframes}
+    \includegraphics[width=\textwidth]{pictures/KilterVote_GUI.png}
 
   \subsection{Einordnung in die Anforderungen}  
     \par  
@@ -125,7 +128,94 @@
       Die Statistiken der Boulderer und die Versuche während der Sessions werden auf dem persönlichen Gerät gespeichert und dann im Ad-hoc Netzwerk gepublished, somit liegen die Daten immer verteilt auf mehreren Geräten.
       Lässt es der zeitliche Rahmen zu besteht auch die Möglichkeit NFC für das Beitreten/Erstellen einer Session zwischen Boulderern zu nutzen.
     
-  \subsection{Wireframes}
-    \includegraphics[width=\textwidth]{pictures/KilterVote_GUI.png}
+\newpage
+
+\section{Komponenten}
+  \par
+    Ganz grob besteht die Applikation aus 4 Komponenten.
+    \begin{enumerate}
+      \item GUI
+      \item Domain Logic
+      \item Network
+      \item Persistence
+    \end{enumerate}
+    Die GUI Komponente greift dabei auf die Domain Logic Komponente zu, welche die nötigen Daten zur Anzeige in der GUI bereitstellt.
+    Die Domain Logic Komponente wiederum greift auf die Network Komponente und die Persistence Komponente zu.
+    Über diese beiden Komponenten erfragt die Domain Logic Komponente die nötigen Daten, entweder von anderen Geräten im gleichen Ad-hoc Netzwerk oder durch die auf dem Gerät gespeicherten Daten.
+
+  \subsection{GUI}
+    \par
+      Die bereits erwähnten Use Cases, sowie die Wireframes bilden bereits ein gutes Konzept für die GUI.
+      Es wird nicht viele Activities geben, was genau auf der GUI angezeigt wird hängt hauptsächlich vom aktuellen Status der Session ab und kann somit durch verschiedene Fragments realisiert werden.
+      Die GUI bietet keine Schnittstelle, da sie nur auf andere Komponenten zugreift.
+      Das Testen dieser ist nur durch End-to-End Test möglich z.B. durch Bibliotheken wie Espresso.
+
+    \subsubsection{Main Activity}
+
+      \subsubsubsection{Sessions}
+        \par
+          Ist der Boulderer noch keiner Session beigetreten, kann er dies im Hauptbildschirm tun oder eine neue erstellen.
+          Ist die Session erstellt werden alle beigetretenen Boulderern mit Namen und Erfahrungslevel angezeigt.
+          Hier kann nun ausgewählt werden ob die Boulderer ihre Statistiken vergleichen wollen oder eine Kilter Runde starten wollen.
+
+      \subsubsubsection{Rivalitäten}
+        \par
+          Jeder Boulderer published seine eigenen Statistiken im bestehenden Ad-hoc Netzwerk, so können Statistiken angezeigt und untereinander verglichen werden.
+
+      \subsubsubsection{RoutePool}
+        \par
+          Sind alle Boulderer bereit beginnen die Boulderer mit dem Befüllen des Routen Pools.
+          Hierzu können sie entweder bereits erstellte Route auswählen, oder komplett neue Routen erstellen.
+
+      \subsubsubsection{Voting}
+        \par
+          Ist dieser befüllt, können die Boulderer für eine Route stimmen.
+          Haben alle Boulderer ihre Stimme abgegeben, wird eine Route ausgewählt und jeder Boulderer kann mit seinen Versuchen beginnen.
+
+      \subsubsubsection{Attempts}
+        \par
+          Der Boulderer mit dem aktuellen Versuch bekommt die Möglichkeit seinen Versuch abzuschliessen indem er seinen Fortschritt in Prozenten angibt.
+          Das geht so lange bis alle Boulderer die Route geschafft haben oder ihre Versuche verbraucht sind dann können die Boulderer wieder für eine Route abstimmen.
+
+    \subsubsection{Route Creator}
+      \par
+        In dieser Activity wird den Boulderern die Möglichkeit gegeben eine eigene Route zu erstellen, abzuändern und zu speichern.
+
+
+  \subsection{Domain Logic}
+    \par
+      Diese Komponente kann völlig unabhängig von Android implementiert werden und eignet sich damit für Unit Tests. Abhängigkeiten von der Network und Persistence Komponente können gemockt werden.
+      Aufgabe dieser Komponente ist die Steuerung zwischen Nutzerinteraktionen und dem Bereitstellen der benötigten Daten für die verschiedenen Activities/Fragments.
+      Damit werden folgende Aktionen bereitgestellt:
+      \begin{itemize}
+        \item Session erstellen
+        \item Boulderer zu Session hinzufügen
+        \item Boulderer von Session entfernen
+        \item Routen zum Pool hinzufügen
+        \item Routen Pool abfragen
+        \item Abstimmen für Routen in Pool
+        \item Meist gewählte Route abfragen
+      \end{itemize}
+
+  \subsection{Network}
+    \par
+      Mit dieser Komponente werden die einzelnen Verbindungen zwischen den Geräten der Boulderer hergestellt. Außerdem werden die Anfragen von bestimmten Daten, sowie deren Antworten zwischen den Geräten ausgetauscht.
+      Die Network Komponente bietet folgende Funktionen:
+      \begin{itemize}
+        \item Session erstellen
+        \item Session beitreten
+        \item Session verlassen
+        \item Session Information aktualisieren
+      \end{itemize}
+
+  \subsection{Persistence}
+    \par
+      Diese Komponente übernimmt das Speichern der für den Boulderer relevanten Daten.
+      Dazu gehören:
+      \begin{itemize}
+        \item Boulderer Name
+        \item Boulderer Erfahrungslevel
+        \item Statistiken des Boulderers pro Route
+      \end{itemize}
 
 \end{document}
