@@ -33,6 +33,7 @@
 
 \setlength{\parindent}{0cm}
 
+
 %%%
 
 \begin{document}
@@ -274,5 +275,133 @@
         \item Boulderer Erfahrungslevel
         \item Statistiken des Boulderers pro Route
       \end{itemize}
+
+\section{Interfaces und Testing}
+\subsection{Network}
+\begin{verbatim}
+interface Network {
+    fun getNearbySessions(): List<Session>
+    fun joinSession(sessionId: String)
+    fun leaveSession()
+    fun createSession(): Session
+    fun updateSessionInfo(sessionDetails: SessionDetails)
+}
+\end{verbatim}
+Unit Tests
+ \begin{itemize}
+	\item \texttt{getNearbySessions()} gibt Sessions zurück (mit mocked nearby sessions)
+	\item \texttt{getNearbySessions()} gibt keine Sessions zurück (ohne nearby sessions)
+	\item \texttt{joinSession()} tritt gemockter Session bei
+	\item \texttt{leaveSession()} verlässt gemockte Session
+	\item \texttt{createSession()} erstellt neue Session
+	\item \texttt{updateSessionInfo()} setzt Session Details (testen via Spy)
+\end{itemize}
+
+\subsection{Pool} 
+\begin{verbatim}
+interface Pool {
+    fun createPool(): Pool
+    fun getPoolDetails(): PoolDetails
+}
+\end{verbatim}
+Unit Tests
+\begin{itemize}
+	\item \texttt{createPool()} erstellt eine neue Instanz von \texttt{Pool}
+	\item \texttt{createPool()} gibt gültige \texttt{Pool}-Daten zurück (z. B. mit gemockter Implementierung prüfen)
+	\item \texttt{createPool()} erstellt keine Duplikate, wenn ein Pool bereits existiert (ggf. mit Singleton-Mechanismus testen)
+\end{itemize}
+
+\subsection{Statistics} 
+\begin{verbatim}
+interface Statistics {
+    fun setNewHighestGrade(highestGrade: Grade)
+    fun setCurrentRouteProgress(progress: Int)
+    fun addFinishedRoute(finished: Route)
+    fun addRivalryWin(rival: Rival)
+}
+\end{verbatim}
+Unit Tests
+\begin{itemize}
+	\item \texttt{setNewHighestGrade()} setzt neues Höchstgrad (mit Mock-Datenbank prüfen)
+	\item \texttt{setCurrentRouteProgress()} aktualisiert Fortschritt (mit Mock überprüfen)
+	\item \texttt{addFinishedRoute()} fügt abgeschlossene Route in Datenbank ein
+	\item \texttt{addRivalryWin()} fügt Rivalitätsgewinn in Datenbank ein
+\end{itemize}
+
+\subsection{Route} 
+\begin{verbatim}
+interface Route {
+    fun getRouteByName(name: String): Route?
+    fun getRoutesByGrade(grade: Grade): List<Route>
+}
+\end{verbatim}
+Unit Tests
+\begin{itemize}
+	\item \texttt{getRouteByName()} gibt existierende (mock) Route zurück
+	\item \texttt{getRouteByName()} gibt \texttt{null} zurück, wenn Route nicht existiert
+	\item \texttt{getRoutesByGrade()} gibt Liste der Routen für Grad zurück
+	\item \texttt{getRoutesByGrade()} gibt leere Liste zurück, wenn keine Routen existieren
+\end{itemize}
+
+\subsection{RouteManager} 
+\begin{verbatim}
+interface RouteManager {
+    fun addVote(vote: Vote)
+    fun getWinningRoute(): Route
+}
+\end{verbatim}
+Unit Tests
+\begin{itemize}
+	\item \texttt{addVote()} fügt Stimme mit hinzu (Stimmengewicht ebenfalls testen)
+	\item \texttt{getWinningRoute()} gibt Route mit den meisten Stimmen (unter Berücksichtigung der Gewichtung) zurück
+	\item \texttt{getWinningRoute()} gibt \texttt{null}, wenn keine Stimmen vorhanden sind
+\end{itemize}
+
+\subsection{Vote} 
+\begin{verbatim}
+interface Vote {
+    fun getRoute(): Route
+    fun getVoteWeight(): Int
+}
+\end{verbatim}
+Unit Tests
+\begin{itemize}
+	\item \texttt{getRoute()} gibt die Route zurück, die abgestimmt wurde
+	\item \texttt{getVoteWeight()} gibt korrektes Stimmgewicht zurück
+\end{itemize}
+
+\subsection{VoteManager} 
+\begin{verbatim}
+interface VoteManager {
+    fun addRoute(route: Route)
+    fun removeRoute(route: Route)
+    fun getRoutes(): List<Route>
+}
+\end{verbatim}
+Unit Tests
+\begin{itemize}
+	\item \texttt{addRoute()} fügt neue Route hinzu
+	\item \texttt{getRoutes()} gibt Liste aller hinzugefügten Routen zurück
+	\item \texttt{getRoutes()} gibt leere Liste zurück, wenn keine Routen hinzugefügt wurden
+\end{itemize}
+
+\newpage
+
+\subsection{Integration Tests}
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+\hline
+getestete Komponenten & Test Beschreibung & erwartetes Resultat \\
+\hline
+\texttt{Network} + \texttt{Pool} & Abhängigkeit zwischen Network und Pool & eine neue Session erstellt auch einen dazugehörigen Pool \\
+\hline
+\texttt{RouteManager} + \texttt{VoteManager} & einfache Interkation zwischen Route- und VoteManager & eine einzige Wahl auf eine Route führt dazu, dass diese Route die Wahl gewinnt \\
+\hline
+\texttt{Pool} + \texttt{Statistics} & Highscores und andere Statistiken werden beim Beenden einer Runde gesetzt & gegebene Statistiken sind am ende der Runde in der Datenbank \\
+\hline
+
+\end{tabular}
+\end{table}
 
 \end{document}
